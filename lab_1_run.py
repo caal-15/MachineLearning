@@ -1,5 +1,7 @@
 import numpy as np
 from matplotlib import pyplot as plot
+from regression.ml_regression import MLRegression
+from regression.base_function import PolynomialBF
 
 start = 0
 end = 1
@@ -18,5 +20,14 @@ x_training = full_spectrum[all_indexes[0:training_samples]]
 t_training = full_sine_noise[all_indexes[0:training_samples]]
 
 plot.plot(x_training, t_training, 'rx')
+
+M = 6
+base_functions = []
+for i in range(0, M):
+    base_functions.append(PolynomialBF(i))
+
+ml_reg = MLRegression(base_functions, x_training, t_training)
+results = ml_reg.predict(full_spectrum)
+plot.plot(full_spectrum, results)
 
 plot.show()
